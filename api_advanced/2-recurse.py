@@ -4,7 +4,8 @@ import requests
 
 
 def recurse(subreddit, hot_list=None, after=None):
-    """Recursively returns a list of titles of all hot articles for a subreddit"""
+    """Recursively returns a list of titles of all hot
+    articles for a subreddit"""
     if hot_list is None:
         hot_list = []
 
