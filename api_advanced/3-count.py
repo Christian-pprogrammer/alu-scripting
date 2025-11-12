@@ -1,9 +1,5 @@
 #!/usr/bin/python3
-"""
-This module contains a function that recursively queries the Reddit API,
-counts occurrences of specific keywords in the titles of all hot articles
-for a given subreddit, and prints the counts sorted by frequency and name.
-"""
+""" count.py """
 import requests
 
 
