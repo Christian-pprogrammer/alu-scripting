@@ -15,3 +15,4 @@ def number_of_subscribers(subreddit):
         return data.get('subscribers', 0)
     except Exception:
         return 0
+    
