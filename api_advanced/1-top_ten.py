@@ -9,21 +9,36 @@ def top_ten(subreddit):
         print(None)
         return
 
-    url = 'https://www.reddit.com/r/{}/hot.json?limit=10'.format(subreddit)
-    headers = {'User-Agent': 'python:api_advanced:v1.0.0 (by /u/yourusername)'}
+    url = f'https://www.reddit.com/r/{subreddit}/hot.json'
+    headers = {
+        'User-Agent': 'python:reddit-api:v1.0 (by /u/yourusername)'
+    }
+    params = {
+        'limit': 10
+    }
 
     try:
-        response = requests.get(url, headers=headers, allow_redirects=False)
+        response = requests.get(
+            url, 
+            headers=headers, 
+            params=params, 
+            allow_redirects=False,
+            timeout=5
+        )
 
-        if response.status_code != 200:
+        # Check if the subreddit exists (status code 200)
+        if response.status_code == 200:
+            data = response.json()
+            posts = data.get('data', {}).get('children', [])
+            
+            if not posts:
+                print(None)
+            else:
+                for post in posts:
+                    print(post['data']['title'])
+        else:
+            # Subreddit doesn't exist or other error
             print(None)
-            return
 
-        data = response.json().get('data', {})
-        posts = data.get('children', [])
-
-        for post in posts:
-            print(post['data']['title'])
-
-    except Exception:
+    except (requests.RequestException, ValueError, KeyError):
         print(None)
